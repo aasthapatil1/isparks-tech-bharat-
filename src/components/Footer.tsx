@@ -33,7 +33,7 @@ const Footer = () => {
                   <li key={link}>
                     <a 
                       href={`#${link.toLowerCase().replace(' ', '-')}`}
-                      className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                      className="text-muted-foreground hover:text-primary hover:translate-x-1 inline-block transition-all duration-300 text-sm"
                     >
                       {link}
                     </a>
@@ -48,9 +48,9 @@ const Footer = () => {
                 Our Services
               </h4>
               <ul className="space-y-3">
-                {['AI Chatbot', 'Invoice Data Extraction', 'Website Development', 'Data Mining'].map((service) => (
+                {['AI Chatbot', 'Doc-AI Extraction', 'Website Development', 'Semiconductor Testing', 'App Development'].map((service) => (
                   <li key={service}>
-                    <span className="text-muted-foreground text-sm">{service}</span>
+                    <span className="text-muted-foreground text-sm hover:text-foreground transition-colors duration-300 cursor-default">{service}</span>
                   </li>
                 ))}
               </ul>
@@ -68,8 +68,8 @@ const Footer = () => {
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground mb-1">Phone</p>
-                    <a href="tel:+6591850551" className="text-foreground font-medium text-sm hover:text-primary transition-colors">
-                      +65 9185 0551
+                    <a href="tel:+6582154249" className="text-foreground font-medium text-sm hover:text-primary transition-colors">
+                      +65 8215 4249
                     </a>
                   </div>
                 </li>
@@ -79,8 +79,8 @@ const Footer = () => {
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground mb-1">Email</p>
-                    <a href="mailto:isparkstechnologies@gmail.com" className="text-foreground font-medium text-sm hover:text-primary transition-colors break-all">
-                      isparkstechnologies@gmail.com
+                    <a href="mailto:sales@isparkstech.com" className="text-foreground font-medium text-sm hover:text-primary transition-colors break-all">
+                      sales@isparkstech.com
                     </a>
                   </div>
                 </li>
@@ -104,18 +104,10 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-border/50">
           <div className="container mx-auto px-4 lg:px-8 py-6">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center justify-center">
               <p className="text-muted-foreground text-sm">
                 © {new Date().getFullYear()} iSparks Technologies. All rights reserved.
               </p>
-              <div className="flex items-center gap-6">
-                <a href="#" className="text-muted-foreground hover:text-primary text-sm transition-colors">
-                  Privacy Policy
-                </a>
-                <a href="#" className="text-muted-foreground hover:text-primary text-sm transition-colors">
-                  Terms of Service
-                </a>
-              </div>
             </div>
           </div>
         </div>

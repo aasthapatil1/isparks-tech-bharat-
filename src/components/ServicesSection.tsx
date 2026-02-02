@@ -3,8 +3,8 @@ import { Check } from 'lucide-react';
 import iconChatbot from '@/assets/icon-chatbot.png';
 import iconInvoice from '@/assets/icon-invoice.png';
 import iconWebdev from '@/assets/icon-webdev.png';
-import iconDatamining from '@/assets/icon-datamining.png';
 import iconSemiconductor from '@/assets/icon-semiconductor.png';
+import iconAppdev from '@/assets/icon-appdev.png';
 import {
   Dialog,
   DialogContent,
@@ -23,7 +23,7 @@ const services = [
     hasPlans: true,
   },
   {
-    title: 'INVOICE DATA EXTRACTION',
+    title: 'DOC-AI EXTRACTION',
     image: iconInvoice,
     position: 'bottom-left',
     hasPlans: false,
@@ -35,14 +35,14 @@ const services = [
     hasPlans: false,
   },
   {
-    title: 'DATA MINING',
-    image: iconDatamining,
-    position: 'top-right',
+    title: 'SEMICONDUCTOR TESTING SOFTWARE',
+    image: iconSemiconductor,
+    position: 'center',
     hasPlans: false,
   },
   {
-    title: 'SEMICONDUCTOR TESTING SOFTWARE',
-    image: iconSemiconductor,
+    title: 'APP DEVELOPMENT',
+    image: iconAppdev,
     position: 'center',
     hasPlans: false,
   },
@@ -135,7 +135,7 @@ const ServicesSection = () => {
   };
 
   const handleWhatsAppRedirect = (type: 'rfq' | 'enquiry') => {
-    const phoneNumber = '6591850551';
+    const phoneNumber = '6582154249';
     const { name, email, phone, company, message } = enquiryForm;
     
     let text = '';
@@ -161,7 +161,7 @@ const ServicesSection = () => {
 
         {/* Services Grid */}
         <div className="relative max-w-7xl mx-auto">
-          {/* Desktop Layout - Single horizontal row */}
+          {/* Desktop Layout - Single row */}
           <div className="hidden lg:grid grid-cols-5 gap-6">
             {services.map((service, index) => (
               <ServiceCard
@@ -356,10 +356,10 @@ const ServiceCard = ({ service, isVisible, delay, onClick }: ServiceCardProps) =
         <img
           src={service.image}
           alt={service.title}
-          className="w-32 h-32 object-contain icon-pulse"
+          className="w-32 h-32 object-contain transition-transform duration-400 group-hover:scale-110"
         />
       </div>
-      <h4 className="text-sm font-bold text-muted-foreground uppercase tracking-wider">
+      <h4 className="text-sm font-bold text-muted-foreground uppercase tracking-wider group-hover:text-primary transition-colors duration-300">
         {service.title}
       </h4>
     </div>

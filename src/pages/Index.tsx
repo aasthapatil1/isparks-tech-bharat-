@@ -10,7 +10,7 @@ import ProcessSection from '@/components/ProcessSection';
 import CTASection from '@/components/CTASection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
-import ChatbotWidget from '@/components/ChatbotWidget';
+import FloatingButtons from '@/components/FloatingButtons';
 
 const Index = () => {
   return (
@@ -55,8 +55,8 @@ const Index = () => {
         {/* Footer */}
         <Footer />
 
-        {/* Chatbot Widget */}
-        <ChatbotWidget />
+        {/* Floating Buttons (WhatsApp + Chatbot) */}
+        <FloatingButtons />
       </div>
     </>
   );

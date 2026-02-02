@@ -72,21 +72,21 @@ const ProcessSection = () => {
             {steps.map((step, index) => (
               <div
                 key={step.title}
-                className={`relative text-center transition-all duration-700 ${
+                className={`relative text-center transition-all duration-700 group ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
                 {/* Step Number */}
-                <div className="relative z-10 w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center shadow-lg shadow-primary/30">
+                <div className="relative z-10 w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center shadow-lg shadow-primary/30 group-hover:shadow-xl group-hover:shadow-primary/40 group-hover:scale-110 transition-all duration-400">
                   <step.icon className="w-8 h-8 text-white" />
-                  <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-amber-300 text-primary font-bold text-sm flex items-center justify-center">
+                  <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-amber-300 text-primary font-bold text-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     {step.step}
                   </span>
                 </div>
 
-                <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
-                <p className="text-white/70 leading-relaxed">{step.description}</p>
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-amber-300 transition-colors duration-300">{step.title}</h3>
+                <p className="text-white/70 leading-relaxed group-hover:text-white/85 transition-colors duration-300">{step.description}</p>
               </div>
             ))}
           </div>

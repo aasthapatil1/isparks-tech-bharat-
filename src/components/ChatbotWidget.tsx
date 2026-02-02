@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X, Send, Bot, Sparkles } from 'lucide-react';
+import { X, Send, Bot, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
@@ -9,16 +9,23 @@ interface Message {
   isBot: boolean;
 }
 
+interface ChatbotWidgetProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
 const botResponses: Record<string, string> = {
-  services: `We offer 4 main services:
+  services: `We offer 5 main services:
 
-🤖 AI Chatbot Solutions - Custom AI chatbots for customer support, lead generation, and automation.
+🤖 AI Chatbot - Custom AI chatbots for customer support, lead generation, and automation.
 
-📄 Invoice Data Extraction - Automated invoice processing with 99%+ accuracy.
+📄 Doc-AI Extraction - Automated document processing with 99%+ accuracy.
 
 🌐 Website Development - Modern, responsive websites tailored to your business.
 
-📊 Data Mining - Extract valuable insights from your data.
+🔬 Semiconductor Testing Software - Specialized testing solutions for semiconductor industry.
+
+📱 App Development - Custom mobile and web applications for your business.
 
 Type a service name to learn more!`,
   
@@ -30,15 +37,15 @@ Our AI-powered chatbots can:
 • Support multiple languages
 • Reduce support costs by up to 70%
 
-Plans start from $199/month. Would you like to request a quote?`,
+Plans start from ₹9,999/month. Would you like to request a quote?`,
 
-  invoice: `📄 Invoice Data Extraction
+  invoice: `📄 Doc-AI Extraction
 
-Automate your invoice processing:
-• Extract data from any invoice format
+Automate your document processing:
+• Extract data from any document format
 • 99%+ accuracy with AI
 • Export to Excel, CSV, or your ERP
-• Process thousands of invoices in minutes
+• Process thousands of documents in minutes
 
 Contact us for a demo!`,
 
@@ -53,20 +60,31 @@ We build modern websites:
 
 Let's discuss your project!`,
 
-  data: `📊 Data Mining Services
+  semiconductor: `🔬 Semiconductor Testing Software
 
-Unlock insights from your data:
-• Web scraping & data collection
-• Data cleaning & transformation
-• Business intelligence reports
-• Competitor analysis
-• Market research
+Our semiconductor testing solutions include:
+• Automated test equipment integration
+• Custom test program development
+• Data analysis & yield optimization
+• Quality assurance systems
+• Production testing solutions
 
-Tell us what data you need!`,
+Contact us for specialized semiconductor solutions!`,
+
+  app: `📱 App Development
+
+We build custom applications:
+• iOS & Android mobile apps
+• Cross-platform solutions
+• Web applications
+• Enterprise software
+• UI/UX design & development
+
+Let's bring your app idea to life!`,
 
   contact: `📞 Contact Us
 
-• WhatsApp: +65 9185 0551
+• WhatsApp: +65 8215 4249
 • Email: info@isparks.com
 • Location: Singapore
 
@@ -75,10 +93,11 @@ We typically respond within 1 hour during business hours.`,
   pricing: `💰 Pricing
 
 Our pricing varies by project scope:
-• AI Chatbot: From $199/month
+• AI Chatbot: From ₹9,999/month
 • Invoice Extraction: Custom quote
-• Website: From $2,000
-• Data Mining: Project-based
+• Website: From ₹50,000
+• Semiconductor Testing: Project-based
+• App Development: From ₹1,00,000
 
 Request a quote for accurate pricing!`,
 
@@ -86,9 +105,10 @@ Request a quote for accurate pricing!`,
 
 • Services - Overview of what we offer
 • Chatbot - AI chatbot solutions
-• Invoice - Invoice data extraction
+• Invoice - Doc-AI extraction
 • Website - Web development
-• Data - Data mining services
+• Semiconductor - Testing software
+• App - App development
 • Contact - How to reach us
 • Pricing - Our pricing info
 
@@ -104,14 +124,17 @@ const getResponse = (input: string): string => {
   if (lower.includes('chatbot') || lower.includes('ai bot') || lower.includes('chat bot')) {
     return botResponses.chatbot;
   }
-  if (lower.includes('invoice') || lower.includes('extraction') || lower.includes('ocr')) {
+  if (lower.includes('invoice') || lower.includes('extraction') || lower.includes('ocr') || lower.includes('doc-ai') || lower.includes('document')) {
     return botResponses.invoice;
   }
   if (lower.includes('website') || lower.includes('web dev') || lower.includes('site')) {
     return botResponses.website;
   }
-  if (lower.includes('data') || lower.includes('mining') || lower.includes('scraping')) {
-    return botResponses.data;
+  if (lower.includes('semiconductor') || lower.includes('testing software') || lower.includes('chip')) {
+    return botResponses.semiconductor;
+  }
+  if (lower.includes('app') || lower.includes('mobile') || lower.includes('application')) {
+    return botResponses.app;
   }
   if (lower.includes('contact') || lower.includes('phone') || lower.includes('email') || lower.includes('whatsapp')) {
     return botResponses.contact;
@@ -126,8 +149,7 @@ const getResponse = (input: string): string => {
   return botResponses.default;
 };
 
-const ChatbotWidget = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const ChatbotWidget = ({ isOpen, onClose }: ChatbotWidgetProps) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
@@ -208,130 +230,110 @@ const ChatbotWidget = () => {
     setInput('');
   };
 
+  if (!isOpen) return null;
+
   return (
-    <>
-      {/* Floating Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-105 hover:shadow-2xl ${
-          isOpen 
-            ? 'bg-slate-800' 
-            : 'bg-primary'
-        }`}
-        aria-label="Open chat"
-      >
-        {isOpen ? (
-          <X className="w-6 h-6 text-white" />
-        ) : (
-          <MessageCircle className="w-7 h-7 text-white" />
-        )}
-      </button>
-
-      {/* Chat Window */}
-      {isOpen && (
-        <div className="fixed bottom-24 right-6 z-50 w-[360px] sm:w-[400px] h-[550px] bg-slate-900 rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-slate-700/50">
-          {/* Header */}
-          <div className="bg-slate-800 p-5 flex items-center gap-4 border-b border-slate-700/50">
-            <div className="w-12 h-12 bg-primary/20 rounded-2xl flex items-center justify-center">
-              <Sparkles className="w-6 h-6 text-primary" />
-            </div>
-            <div className="flex-1">
-              <h3 className="text-white font-semibold text-lg">iSparks AI</h3>
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-green-400 rounded-full"></span>
-                <p className="text-slate-400 text-sm">Online</p>
-              </div>
-            </div>
-            <button 
-              onClick={() => setIsOpen(false)}
-              className="w-8 h-8 rounded-full bg-slate-700/50 flex items-center justify-center hover:bg-slate-600 transition-colors"
-            >
-              <X className="w-4 h-4 text-slate-400" />
-            </button>
-          </div>
-
-          {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-900">
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className={`flex ${message.isBot ? 'justify-start' : 'justify-end'}`}
-              >
-                {message.isBot && (
-                  <div className="w-8 h-8 bg-primary/20 rounded-xl flex items-center justify-center mr-2 flex-shrink-0 mt-1">
-                    <Bot className="w-4 h-4 text-primary" />
-                  </div>
-                )}
-                <div
-                  className={`max-w-[80%] p-4 text-sm whitespace-pre-line leading-relaxed ${
-                    message.isBot
-                      ? 'bg-slate-800 text-slate-200 rounded-2xl rounded-tl-md'
-                      : 'bg-primary text-white rounded-2xl rounded-tr-md'
-                  }`}
-                >
-                  {message.text}
-                </div>
-              </div>
-            ))}
-            
-            {/* Typing Indicator */}
-            {isTyping && (
-              <div className="flex justify-start">
-                <div className="w-8 h-8 bg-primary/20 rounded-xl flex items-center justify-center mr-2 flex-shrink-0 mt-1">
-                  <Bot className="w-4 h-4 text-primary" />
-                </div>
-                <div className="bg-slate-800 text-slate-200 rounded-2xl rounded-tl-md p-4">
-                  <div className="flex gap-1">
-                    <span className="w-2 h-2 bg-slate-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
-                    <span className="w-2 h-2 bg-slate-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
-                    <span className="w-2 h-2 bg-slate-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
-                  </div>
-                </div>
-              </div>
-            )}
-            <div ref={messagesEndRef} />
-          </div>
-
-          {/* Quick Actions */}
-          {messages.length <= 2 && (
-            <div className="px-4 pb-2 flex gap-2 flex-wrap">
-              {quickActions.map((action) => (
-                <button
-                  key={action.label}
-                  onClick={() => handleQuickAction(action.query)}
-                  className="px-4 py-2 bg-slate-800 text-slate-300 text-sm rounded-full border border-slate-700 hover:bg-slate-700 hover:text-white transition-colors"
-                >
-                  {action.label}
-                </button>
-              ))}
-            </div>
-          )}
-
-          {/* Input */}
-          <div className="p-4 bg-slate-800 border-t border-slate-700/50">
-            <div className="flex gap-3 items-center bg-slate-900 rounded-2xl p-2 pl-4">
-              <Input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder="Ask anything..."
-                className="flex-1 border-0 bg-transparent text-white placeholder:text-slate-500 focus-visible:ring-0 focus-visible:ring-offset-0"
-              />
-              <Button
-                onClick={handleSend}
-                size="icon"
-                className="bg-primary hover:bg-primary/90 rounded-xl h-10 w-10"
-              >
-                <Send className="w-4 h-4" />
-              </Button>
-            </div>
-            <p className="text-xs text-slate-500 mt-3 text-center">
-              Need human help? <a href="https://wa.me/6591850551" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Chat on WhatsApp</a>
-            </p>
+    <div className="fixed bottom-44 right-6 z-50 w-[360px] sm:w-[400px] h-[500px] bg-slate-900 rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-slate-700/50">
+      {/* Header */}
+      <div className="bg-slate-800 p-5 flex items-center gap-4 border-b border-slate-700/50">
+        <div className="w-12 h-12 bg-primary/20 rounded-2xl flex items-center justify-center">
+          <Sparkles className="w-6 h-6 text-primary" />
+        </div>
+        <div className="flex-1">
+          <h3 className="text-white font-semibold text-lg">iSparks AI</h3>
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+            <p className="text-slate-400 text-sm">Online</p>
           </div>
         </div>
+        <button 
+          onClick={onClose}
+          className="w-8 h-8 rounded-full bg-slate-700/50 flex items-center justify-center hover:bg-slate-600 transition-colors"
+        >
+          <X className="w-4 h-4 text-slate-400" />
+        </button>
+      </div>
+
+      {/* Messages */}
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-900">
+        {messages.map((message) => (
+          <div
+            key={message.id}
+            className={`flex ${message.isBot ? 'justify-start' : 'justify-end'}`}
+          >
+            {message.isBot && (
+              <div className="w-8 h-8 bg-primary/20 rounded-xl flex items-center justify-center mr-2 flex-shrink-0 mt-1">
+                <Bot className="w-4 h-4 text-primary" />
+              </div>
+            )}
+            <div
+              className={`max-w-[80%] p-4 text-sm whitespace-pre-line leading-relaxed ${
+                message.isBot
+                  ? 'bg-slate-800 text-slate-200 rounded-2xl rounded-tl-md'
+                  : 'bg-primary text-white rounded-2xl rounded-tr-md'
+              }`}
+            >
+              {message.text}
+            </div>
+          </div>
+        ))}
+        
+        {/* Typing Indicator */}
+        {isTyping && (
+          <div className="flex justify-start">
+            <div className="w-8 h-8 bg-primary/20 rounded-xl flex items-center justify-center mr-2 flex-shrink-0 mt-1">
+              <Bot className="w-4 h-4 text-primary" />
+            </div>
+            <div className="bg-slate-800 text-slate-200 rounded-2xl rounded-tl-md p-4">
+              <div className="flex gap-1">
+                <span className="w-2 h-2 bg-slate-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                <span className="w-2 h-2 bg-slate-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
+                <span className="w-2 h-2 bg-slate-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
+              </div>
+            </div>
+          </div>
+        )}
+        <div ref={messagesEndRef} />
+      </div>
+
+      {/* Quick Actions */}
+      {messages.length <= 2 && (
+        <div className="px-4 pb-2 flex gap-2 flex-wrap">
+          {quickActions.map((action) => (
+            <button
+              key={action.label}
+              onClick={() => handleQuickAction(action.query)}
+              className="px-4 py-2 bg-slate-800 text-slate-300 text-sm rounded-full border border-slate-700 hover:bg-slate-700 hover:text-white transition-colors"
+            >
+              {action.label}
+            </button>
+          ))}
+        </div>
       )}
-    </>
+
+      {/* Input */}
+      <div className="p-4 bg-slate-800 border-t border-slate-700/50">
+        <div className="flex gap-3 items-center bg-slate-900 rounded-2xl p-2 pl-4">
+          <Input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyPress={handleKeyPress}
+            placeholder="Ask anything..."
+            className="flex-1 border-0 bg-transparent text-white placeholder:text-slate-500 focus-visible:ring-0 focus-visible:ring-offset-0"
+          />
+          <Button
+            onClick={handleSend}
+            size="icon"
+            className="bg-primary hover:bg-primary/90 rounded-xl h-10 w-10"
+          >
+            <Send className="w-4 h-4" />
+          </Button>
+        </div>
+        <p className="text-xs text-slate-500 mt-3 text-center">
+          Need human help? <a href="https://wa.me/6582154249" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Chat on WhatsApp</a>
+        </p>
+      </div>
+    </div>
   );
 };
 

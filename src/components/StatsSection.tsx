@@ -76,16 +76,16 @@ const StatsSection = () => {
           {stats.map((stat, index) => (
             <div
               key={stat.label}
-              className={`text-center p-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 transition-all duration-700 ${
+              className={`text-center p-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 transition-all duration-700 hover:bg-white/15 hover:border-white/30 hover:-translate-y-2 group ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
               style={{ transitionDelay: `${index * 150}ms` }}
             >
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center group-hover:scale-110 group-hover:bg-primary/30 transition-all duration-300">
                 <stat.icon className="w-8 h-8 text-amber-300" />
               </div>
               <AnimatedCounter value={stat.value} suffix={stat.suffix} isVisible={isVisible} />
-              <p className="text-white/70 mt-2 font-medium">{stat.label}</p>
+              <p className="text-white/70 mt-2 font-medium group-hover:text-white/90 transition-colors duration-300">{stat.label}</p>
             </div>
           ))}
         </div>

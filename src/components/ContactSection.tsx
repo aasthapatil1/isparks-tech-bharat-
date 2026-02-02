@@ -2,9 +2,11 @@ import { useState, useEffect, useRef } from 'react';
 import { Check } from 'lucide-react';
 
 const serviceOptions = [
-  'AI Solutions',
-  'Data Mining',
+  'AI Chatbot',
+  'Doc-AI Extraction',
   'Website Development',
+  'Semiconductor Testing Software',
+  'App Development',
 ];
 
 const ContactSection = () => {
@@ -58,11 +60,11 @@ const ContactSection = () => {
 
         {/* Form Card */}
         <div
-          className={`max-w-2xl mx-auto transition-all duration-700 ${
+          className={`max-w-2xl mx-auto transition-all duration-700 ease-out ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          <div className="form-card rounded-2xl p-8">
+          <div className="form-card rounded-2xl p-8 hover:shadow-[0_30px_80px_-20px_hsl(207_90%_30%/0.35)] transition-shadow duration-500">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Full Name */}
               <div>
@@ -161,7 +163,7 @@ const ContactSection = () => {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="btn-primary w-full md:w-auto ripple-effect"
+                className="btn-primary w-full md:w-auto ripple-effect hover:shadow-[0_12px_40px_-8px_hsl(207_90%_54%/0.5)]"
               >
                 Submit Enquiry
               </button>

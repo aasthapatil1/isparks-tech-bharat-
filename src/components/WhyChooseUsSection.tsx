@@ -74,16 +74,16 @@ const WhyChooseUsSection = () => {
           {reasons.map((reason, index) => (
             <div
               key={reason.title}
-              className={`group p-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-500 cursor-pointer ${
+              className={`group p-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-500 cursor-pointer hover:-translate-y-2 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
               style={{ transitionDelay: `${index * 100}ms` }}
             >
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-primary/30 transition-all duration-400">
                 <reason.icon className="w-7 h-7 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">{reason.title}</h3>
-              <p className="text-white/70 leading-relaxed">{reason.description}</p>
+              <h3 className="text-xl font-bold text-white mb-2 group-hover:text-amber-300 transition-colors duration-300">{reason.title}</h3>
+              <p className="text-white/70 leading-relaxed group-hover:text-white/85 transition-colors duration-300">{reason.description}</p>
             </div>
           ))}
         </div>
