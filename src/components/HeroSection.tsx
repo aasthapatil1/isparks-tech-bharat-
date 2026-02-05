@@ -59,7 +59,7 @@ const HeroSection = () => {
 
           {/* Main Heading */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-white mb-6 opacity-0 animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}>
-            Empowering Enterprises with
+            <span className="whitespace-nowrap">Empowering Enterprises with</span>
             <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 bg-[length:200%_auto] animate-shimmer">
               AI-Enabled
